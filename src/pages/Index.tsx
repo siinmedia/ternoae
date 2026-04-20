@@ -32,6 +32,7 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"qris" | "tunai">("qris");
 
   // QRIS modal state
   const [qrisOpen, setQrisOpen] = useState(false);
@@ -214,7 +215,7 @@ const Index = () => {
       `📏 Jarak: ${distanceKm?.toFixed(2)} km`,
       `⏱ Estimasi: ~${durationMin ? Math.round(durationMin) : "-"} menit`,
       `💰 Total: ${price != null ? formatIDR(price) : "-"}`,
-      `💳 Pembayaran: QRIS (sudah di-generate)`,
+      `💳 Pembayaran: ${paymentMethod === "qris" ? "QRIS (sudah di-generate)" : "TUNAI (bayar di tempat)"}`,
     ];
     return lines.join("\n");
   };
@@ -235,7 +236,13 @@ const Index = () => {
       return;
     }
 
-    // Open QRIS modal & generate
+    if (paymentMethod === "tunai") {
+      openWhatsApp();
+      toast({ title: "Pesanan dikirim", description: "Lanjut konfirmasi via WhatsApp." });
+      return;
+    }
+
+    // QRIS → buka modal & generate
     setQrisOpen(true);
     setQrisLoading(true);
     setQrisError(null);
