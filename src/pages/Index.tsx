@@ -198,28 +198,35 @@ const Index = () => {
     setSelecting("pickup");
   };
 
-  const buildWhatsAppMessage = () => {
-    const lines = [
-      "🛵 *Pesanan TernoAE*",
-      "",
-      `👤 Nama: ${name}`,
-      `📞 HP: ${phone}`,
-      "",
-      `📍 *Jemput (A):*`,
-      pickupLabel,
-      `   (${pickup?.lat.toFixed(6)}, ${pickup?.lng.toFixed(6)})`,
-      "",
-      `🎯 *Tujuan (B):*`,
-      destLabel,
-      `   (${destination?.lat.toFixed(6)}, ${destination?.lng.toFixed(6)})`,
-      "",
-      `📏 Jarak: ${distanceKm?.toFixed(2)} km`,
-      `⏱ Estimasi: ~${durationMin ? Math.round(durationMin) : "-"} menit`,
-      `💰 Total: ${price != null ? formatIDR(price) : "-"}`,
-      `💳 Pembayaran: ${paymentMethod === "qris" ? "QRIS (sudah di-generate)" : "TUNAI (bayar di tempat)"}`,
-    ];
-    return lines.join("\n");
-  };
+const buildWhatsAppMessage = () => {
+  const lines = [
+    "*Pesanan TernoAE*",
+    "",
+    "Data Pelanggan",
+    `Nama: ${name}`,
+    `No HP: ${phone}`,
+    "",
+    "Lokasi Penjemputan (A)",
+    pickupLabel,
+    `(${pickup?.lat.toFixed(6)}, ${pickup?.lng.toFixed(6)})`,
+    "",
+    "Tujuan (B)",
+    destLabel,
+    `(${destination?.lat.toFixed(6)}, ${destination?.lng.toFixed(6)})`,
+    "",
+    "Detail Perjalanan",
+    `Jarak: ${distanceKm?.toFixed(2)} km`,
+    `Estimasi: ~${durationMin ? Math.round(durationMin) : "-"} menit`,
+    "",
+    "Pembayaran",
+    `Total: ${price != null ? formatIDR(price) : "-"}`,
+    paymentMethod === "qris"
+      ? "Metode: QRIS (sudah dibuat)"
+      : "Metode: Tunai (bayar di tempat)",
+  ];
+
+  return lines.join("\n");
+};
 
   const openWhatsApp = () => {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage())}`;
