@@ -20,7 +20,7 @@ const NotFound = () => {
 
         {/* SUBTITLE */}
         <div className="text-sm font-black uppercase mb-2">
-          Halaman tidak ditemukan
+          Halaman tidak ditemukan.
         </div>
 
         {/* DESC */}
