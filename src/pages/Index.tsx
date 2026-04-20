@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Helmet } from "react-helmet-async";
 
 const BASE_FARE = 5000;
-const PRICE_PER_KM = 2000;
+const PRICE_PER_KM = 1999;
 const WHATSAPP_NUMBER = "6285155145788"; // 085155145788 in international format
 
 const formatIDR = (n: number) =>
