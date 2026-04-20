@@ -44,7 +44,7 @@ const Index = () => {
   useEffect(() => {
     document.title = "TernoAE — Antar Jemput Cepat Jawa Tengah";
     const desc =
-      "Pesan antar jemput online se-Jawa Tengah dengan TernoAE. Pencarian desa, GPS, harga otomatis & bayar QRIS.";
+      "Pesan antar jemput online se-Jawa Tengah dengan TernoAE. Pencarian desa, GPS, harga otomatis & bayar pakai QRIS.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
