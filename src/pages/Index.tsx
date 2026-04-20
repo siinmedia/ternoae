@@ -32,6 +32,7 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"qris" | "tunai">("qris");
 
   // QRIS modal state
   const [qrisOpen, setQrisOpen] = useState(false);
@@ -214,7 +215,7 @@ const Index = () => {
       `📏 Jarak: ${distanceKm?.toFixed(2)} km`,
       `⏱ Estimasi: ~${durationMin ? Math.round(durationMin) : "-"} menit`,
       `💰 Total: ${price != null ? formatIDR(price) : "-"}`,
-      `💳 Pembayaran: QRIS (sudah di-generate)`,
+      `💳 Pembayaran: ${paymentMethod === "qris" ? "QRIS (sudah di-generate)" : "TUNAI (bayar di tempat)"}`,
     ];
     return lines.join("\n");
   };
@@ -235,7 +236,13 @@ const Index = () => {
       return;
     }
 
-    // Open QRIS modal & generate
+    if (paymentMethod === "tunai") {
+      openWhatsApp();
+      toast({ title: "Pesanan dikirim", description: "Lanjut konfirmasi via WhatsApp." });
+      return;
+    }
+
+    // QRIS → buka modal & generate
     setQrisOpen(true);
     setQrisLoading(true);
     setQrisError(null);
@@ -406,12 +413,46 @@ const Index = () => {
               </div>
             </div>
 
+            {/* Payment method */}
+            <div className="brutal-lg bg-background p-4 space-y-2">
+              <label className="block text-xs font-black uppercase">Metode Pembayaran</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("qris")}
+                  className={`brutal-btn px-3 py-3 text-xs font-black uppercase ${
+                    paymentMethod === "qris" ? "bg-primary" : "bg-background"
+                  }`}
+                >
+                  📱 QRIS
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("tunai")}
+                  className={`brutal-btn px-3 py-3 text-xs font-black uppercase ${
+                    paymentMethod === "tunai" ? "bg-accent text-accent-foreground" : "bg-background"
+                  }`}
+                >
+                  💵 Tunai
+                </button>
+              </div>
+              <p className="text-[11px] font-bold text-muted-foreground">
+                {paymentMethod === "qris"
+                  ? "Bayar dulu via QRIS, lalu konfirmasi WhatsApp."
+                  : "Bayar tunai ke driver. Langsung dikirim ke WhatsApp."}
+              </p>
+            </div>
+
             <button
               type="submit"
               disabled={loading || price == null}
               className="brutal-btn w-full bg-accent px-4 py-4 text-base font-black uppercase tracking-wide text-accent-foreground disabled:opacity-60"
             >
-              {loading ? "Menghitung…" : "Pesan Sekarang"}
+              {loading
+                ? "Menghitung…"
+                : paymentMethod === "qris"
+                ? "Pesan & Bayar QRIS"
+                : "Pesan & Kirim WhatsApp"}
             </button>
           </form>
         </section>
