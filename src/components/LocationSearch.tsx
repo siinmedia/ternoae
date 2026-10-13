@@ -26,12 +26,19 @@ export default function LocationSearch({ placeholder, value, onChange, onSelect,
   }, []);
 
   const search = (q: string) => {
-    if (!q || q.trim().length < 3) { setResults([]); return; }
+    if (!q || q.trim().length < 2) { setResults([]); return; }
     setLoading(true);
     const url = new URL("https://nominatim.openstreetmap.org/search");
-    url.searchParams.set("format", "jsonv2"); url.searchParams.set("q", q); url.searchParams.set("addressdetails", "1");
-    url.searchParams.set("limit", "6"); url.searchParams.set("countrycodes", "id"); url.searchParams.set("viewbox", JATENG_VIEWBOX); url.searchParams.set("bounded", "1");
-    fetch(url.toString(), { headers: { Accept: "application/json" } }).then(r => r.json()).then((d: SearchResult[]) => { setResults(d || []); setOpen(true); }).catch(() => setResults([])).finally(() => setLoading(false));
+    url.searchParams.set("format", "jsonv2");
+    url.searchParams.set("q", q);
+    url.searchParams.set("addressdetails", "1");
+    url.searchParams.set("limit", "8");
+    url.searchParams.set("countrycodes", "id");
+    url.searchParams.set("viewbox", JATENG_VIEWBOX);
+    url.searchParams.set("bounded", "1");
+    url.searchParams.set("extratags", "1");
+    url.searchParams.set("namedetails", "1");
+    fetch(url.toString(), { headers: { Accept: "application/json", "Accept-Language": "id" } }).then(r => r.json()).then((d: SearchResult[]) => { setResults(d || []); setOpen(true); }).catch(() => setResults([])).finally(() => setLoading(false));
   };
   const handleChange = (v: string) => { onChange(v); if (debounceRef.current) window.clearTimeout(debounceRef.current); debounceRef.current = window.setTimeout(() => search(v), 350); };
 
@@ -47,6 +54,8 @@ export default function LocationSearch({ placeholder, value, onChange, onSelect,
           onChange={(e) => handleChange(e.target.value)}
           onFocus={() => results.length && setOpen(true)}
           placeholder={placeholder}
+          autoComplete="off"
+          spellCheck={false}
           className="input !pl-10 !pr-[68px] !py-[10px] !text-[13px]"
         />
         {onUseGPS && (

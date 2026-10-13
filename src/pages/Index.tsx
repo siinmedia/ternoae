@@ -159,12 +159,12 @@ export default function Index() {
               <div className="space-y-2.5">
                 <div className="rounded-[10px] border border-[hsl(var(--border))] bg-white/80">
                   <div className="flex items-center justify-between px-2.5 py-1.5 border-b border-[hsl(var(--border))]/60"><span className="flex items-center gap-1 text-[10px] font-bold uppercase"><span className="grid h-4 w-4 place-items-center rounded-full bg-[#FFC800]"><MapPin size={10} /></span>Jemput</span><button type="button" onClick={() => useGPS("pickup")} className="inline-flex items-center gap-1 rounded-full bg-white border border-[hsl(var(--border))] px-2 py-0.5 text-[10px] font-bold"><LocateFixed size={10} />GPS</button></div>
-                  <div className="p-2"><LocationSearch placeholder="Desa / alamat jemput…" value={pickupLabel} onChange={setPickupLabel} onSelect={(loc, lbl) => { setPickup(loc); setPickupLabel(lbl); setSelecting("destination"); }} variant="pickup" /></div>
+                  <div className="p-2"><LocationSearch placeholder="Cari nama tempat, desa, alamat... (mis: Alun2 Jepara)" value={pickupLabel} onChange={setPickupLabel} onSelect={(loc, lbl) => { setPickup(loc); setPickupLabel(lbl); setSelecting("destination"); }} variant="pickup" /></div>
                 </div>
                 <div className="flex justify-center -my-1.5"><span className="grid h-5 w-5 place-items-center rounded-full bg-[hsl(var(--border))] border-2 border-white shadow-sm"><ArrowRight size={10} className="rotate-90" /></span></div>
                 <div className="rounded-[10px] border border-[hsl(var(--border))] bg-white/80">
                   <div className="flex items-center justify-between px-2.5 py-1.5 border-b border-[hsl(var(--border))]/60"><span className="flex items-center gap-1 text-[10px] font-bold uppercase"><span className="grid h-4 w-4 place-items-center rounded-full bg-[#0F2540] text-white"><Flag size={9} /></span>Tujuan</span><button type="button" onClick={() => useGPS("destination")} className="inline-flex items-center gap-1 rounded-full bg-white border border-[hsl(var(--border))] px-2 py-0.5 text-[10px] font-bold"><LocateFixed size={10} />GPS</button></div>
-                  <div className="p-2"><LocationSearch placeholder="Tujuan…" value={destLabel} onChange={setDestLabel} onSelect={(loc, lbl) => { setDestination(loc); setDestLabel(lbl); }} variant="destination" /></div>
+                  <div className="p-2"><LocationSearch placeholder="Cari nama tempat, tujuan, alamat... (mis: Pasar Jepara)" value={destLabel} onChange={setDestLabel} onSelect={(loc, lbl) => { setDestination(loc); setDestLabel(lbl); }} variant="destination" /></div>
                 </div>
               </div>
 
@@ -175,8 +175,8 @@ export default function Index() {
               </div>
 
               <div className="grid grid-cols-2 gap-2">
-                <label className="block"><span className="mb-1 flex items-center gap-1 text-[10px] font-bold uppercase"><User size={10} />Nama</span><div className="relative"><User size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]" /><input value={name} onChange={e => setName(e.target.value)} placeholder="Nama" className="input !pl-7 !py-1.5 !text-[12px]" /></div></label>
-                <label className="block"><span className="mb-1 flex items-center gap-1 text-[10px] font-bold uppercase"><Phone size={10} />WA</span><div className="relative"><Phone size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]" /><input value={phone} onChange={e => setPhone(e.target.value)} placeholder="08xxx" className="input !pl-7 !py-1.5 !text-[12px]" inputMode="numeric" /></div></label>
+                <label className="block"><span className="mb-1 flex items-center gap-1 text-[10px] font-bold uppercase"><User size={10} />Nama</span><div className="relative"><User size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]" /><input id="customerName" name="name" autoComplete="name" value={name} onChange={e => setName(e.target.value)} placeholder="Nama lengkap" className="input !pl-7 !py-1.5 !text-[12px]" /></div></label>
+                <label className="block"><span className="mb-1 flex items-center gap-1 text-[10px] font-bold uppercase"><Phone size={10} />WA</span><div className="relative"><Phone size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]" /><input id="customerPhone" name="tel" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="08xxxxxxxxxx" className="input !pl-7 !py-1.5 !text-[12px]" inputMode="numeric" type="tel" /></div></label>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
