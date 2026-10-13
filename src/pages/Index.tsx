@@ -131,13 +131,15 @@ export default function Index() {
             <RouteMap embedded pickup={pickup} destination={destination} route={route} selecting={selecting} onMapClick={handleMapClick} onPickupDrag={handlePickupDrag} onDestinationDrag={handleDestinationDrag} />
           </div>
 
-          {/* Brand floating - compact, not navbar */}
+          {/* Brand floating — premium compact */}
           <div className="absolute left-3 top-3 z-[400] flex items-center gap-2">
-            <span className="flex items-center gap-2 rounded-full bg-white/95 backdrop-blur border border-[hsl(var(--border))] px-3 py-1.5 shadow-sm">
-              <span className="grid h-6 w-6 place-items-center rounded-full bg-[#0F2540] text-white font-extrabold text-[11px]">T</span>
-              <span className="text-[11px] font-bold tracking-tight">TernoAE</span>
-              <span className="h-3 w-px bg-[hsl(var(--border))]" />
-              <span className="text-[10px] font-medium text-[hsl(var(--muted-foreground))]">Ojek termurah Jepara</span>
+            <span className="flex items-center gap-2.5 rounded-full bg-white/90 backdrop-blur-md border border-[hsl(var(--border))] pl-1 pr-3 py-1 shadow-[0_4px_16px_rgba(15,37,64,0.08)]">
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#0F2540] text-white font-extrabold text-[12px] shadow-sm">T</span>
+              <span className="flex flex-col leading-none">
+                <span className="text-[12px] font-bold tracking-tight leading-none">TernoAE</span>
+                <span className="text-[9px] font-semibold tracking-wide text-[#0F2540]/70 uppercase leading-none mt-0.5">Ojek Termurah Jepara</span>
+              </span>
+              <span className="ml-1 hidden sm:inline-flex items-center gap-1 rounded-full bg-[#FFF8DB] border border-[#FFE27A] px-2 py-0.5 text-[9px] font-bold tracking-wide"><span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />BUKA</span>
             </span>
           </div>
 
