@@ -86,10 +86,12 @@ export default function Index() {
   const handleDestinationDrag = useCallback(async (l: LatLng) => { if (!checkJateng(l)) return; setDestination(l); setDestLabel("Memuat…"); setDestLabel(await reverseGeocode(l)); }, [reverseGeocode]);
   const useGPS = (target: "pickup" | "destination") => {
     if (!("geolocation" in navigator)) { toast({ title: "GPS tidak didukung" }); return; }
-    toast({ title: "Mengambil GPS…" });
+    toast({ title: target === "pickup" ? "GPS Jemput..." : "GPS Tujuan..." });
     navigator.geolocation.getCurrentPosition(async (pos) => {
       const l = { lat: pos.coords.latitude, lng: pos.coords.longitude }; if (!checkJateng(l)) return;
-      const label = await reverseGeocode(l); if (target === "pickup") { setPickup(l); setPickupLabel(label); } else { setDestination(l); setDestLabel(label); }
+      const label = await reverseGeocode(l);
+      if (target === "pickup") { setPickup(l); setPickupLabel(label); setSelecting("destination"); toast({ title: "Jemput terisi", description: "Sekarang atur Tujuan" }); }
+      else { setDestination(l); setDestLabel(label); toast({ title: "Tujuan terisi" }); }
     }, () => toast({ title: "Gagal GPS" }), { enableHighAccuracy: true, timeout: 10000 });
   };
   useEffect(() => {
