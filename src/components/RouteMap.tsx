@@ -53,7 +53,7 @@ const RouteMap = ({ pickup, destination, route, selecting: _selecting, onMapClic
         <div className="h-full w-full">
           {mounted && (
             <MapContainer center={center} zoom={11} style={{ height: "100%", width: "100%" }} scrollWheelZoom zoomControl={false} attributionControl={false}>
-              <TileLayer attribution='&copy; OSM' url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" maxZoom={19} />
+              <TileLayer attribution='&copy; OpenStreetMap' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19} />
               <ClickHandler onClick={onMapClick} />
               {pickup && <Marker position={[pickup.lat, pickup.lng]} icon={pickupIcon} draggable eventHandlers={{ dragend: (e) => { const ll = e.target.getLatLng(); onPickupDrag({ lat: ll.lat, lng: ll.lng }); } }} />}
               {destination && <Marker position={[destination.lat, destination.lng]} icon={destIcon} draggable eventHandlers={{ dragend: (e) => { const ll = e.target.getLatLng(); onDestinationDrag({ lat: ll.lat, lng: ll.lng }); } }} />}
@@ -71,7 +71,7 @@ const RouteMap = ({ pickup, destination, route, selecting: _selecting, onMapClic
       <div className="h-[360px] w-full lg:h-[420px]">
         {mounted && (
           <MapContainer center={center} zoom={10} style={{ height: "100%", width: "100%" }} scrollWheelZoom zoomControl={false} attributionControl={false}>
-            <TileLayer attribution='&copy; OSM' url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" maxZoom={19} />
+            <TileLayer attribution='&copy; OpenStreetMap' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19} />
             <ClickHandler onClick={onMapClick} />
             {pickup && <Marker position={[pickup.lat, pickup.lng]} icon={pickupIcon} draggable eventHandlers={{ dragend: (e) => { const ll = e.target.getLatLng(); onPickupDrag({ lat: ll.lat, lng: ll.lng }); } }} />}
             {destination && <Marker position={[destination.lat, destination.lng]} icon={destIcon} draggable eventHandlers={{ dragend: (e) => { const ll = e.target.getLatLng(); onDestinationDrag({ lat: ll.lat, lng: ll.lng }); } }} />}
