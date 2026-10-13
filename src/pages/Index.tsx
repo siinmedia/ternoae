@@ -109,7 +109,56 @@ export default function Index() {
   }, [pickup, destination]);
   const price = useMemo(() => distanceKm == null ? null : Math.round(BASE_FARE + distanceKm * PRICE_PER_KM), [distanceKm]);
   const reset = () => { setPickup(null); setDestination(null); setPickupLabel(""); setDestLabel(""); setRoute([]); setDistanceKm(null); setDurationMin(null); setSelecting("pickup"); };
-  const buildWA = () => [`*TernoAE*`, `Nama: ${name}`, `WA: ${phone}`, `Jemput: ${pickupLabel}`, `(${pickup?.lat.toFixed(6)}, ${pickup?.lng.toFixed(6)})`, `Tujuan: ${destLabel}`, `(${destination?.lat.toFixed(6)}, ${destination?.lng.toFixed(6)})`, `Jarak: ${distanceKm?.toFixed(2)} km`, `Estimasi: ${durationMin ? Math.round(durationMin) : "-"} mnt`, `Total: ${price != null ? formatIDR(price) : "-"}`, paymentMethod === "qris" ? "Bayar: QRIS" : "Bayar: Tunai"].join("\n");
+  const makeInvoiceLink = (nama: string, nomor: string, nominal: number) => {
+    try {
+      const payload = { nama: nama.trim(), nomor: nomor.trim(), nominal: String(Math.round(nominal)) };
+      const json = JSON.stringify(payload);
+      // safe base64 for unicode (same as inv.ternoae.web.id admin)
+      const b64 = btoa(unescape(encodeURIComponent(json)));
+      return `https://inv.ternoae.web.id/pay/${b64}`;
+    } catch { return "https://inv.ternoae.web.id"; }
+  };
+  const invoiceLink = useMemo(() => (price != null ? makeInvoiceLink(name || "Customer", phone || "-", price) : null), [name, phone, price]);
+  const buildWA = () => {
+    const gmapsPickup = pickup ? `https://www.google.com/maps?q=${pickup.lat},${pickup.lng}` : "-";
+    const gmapsDest = destination ? `https://www.google.com/maps?q=${destination.lat},${destination.lng}` : "-";
+    const gmapsRoute = pickup && destination ? `https://www.google.com/maps/dir/${pickup.lat},${pickup.lng}/${destination.lat},${destination.lng}` : "-";
+    const lines = [
+      `*TernoAE - Pesanan Baru*`,
+      ``,
+      `Halo driver, ada pesanan baru :`,
+      ``,
+      `*Pelanggan*`,
+      `Nama : ${name || "-"}`,
+      `WA : ${phone || "-"}`,
+      ``,
+      `*Jemput (A)*`,
+      `${pickupLabel || "-"}`,
+      `Map : ${gmapsPickup}`,
+      ``,
+      `*Tujuan (B)*`,
+      `${destLabel || "-"}`,
+      `Map : ${gmapsDest}`,
+      ``,
+      `*Perjalanan*`,
+      `Jarak : ${distanceKm != null ? `${distanceKm.toFixed(2)} km` : "-"}`,
+      `Estimasi : ${durationMin != null ? `${Math.round(durationMin)} menit` : "-"}`,
+      `Rute : ${gmapsRoute}`,
+      ``,
+      `*Pembayaran*`,
+      `Total : ${price != null ? formatIDR(price) : "-"}`,
+      `Metode : ${paymentMethod === "qris" ? "QRIS" : "Tunai di tempat"}`,
+    ];
+    if (paymentMethod === "qris" && invoiceLink) {
+      lines.push(`Link Bayar : ${invoiceLink}`);
+      lines.push(`Status : Menunggu pembayaran QRIS`);
+    } else {
+      lines.push(`Status : Bayar tunai ke driver`);
+    }
+    lines.push(``);
+    lines.push(`Mohon konfirmasi ketersediaan driver. Terima kasih!`);
+    return lines.join("\n");
+  };
   const openWA = () => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWA())}`, "_blank");
   const submitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -192,7 +241,7 @@ export default function Index() {
         </div>
       </div>
 
-      <QRISModal open={qrisOpen} onClose={() => setQrisOpen(false)} qrisString={qrisString} amount={price ?? 0} loading={qrisLoading} error={qrisError} onContinueToWhatsApp={openWA} />
+      <QRISModal open={qrisOpen} onClose={() => setQrisOpen(false)} qrisString={qrisString} amount={price ?? 0} loading={qrisLoading} error={qrisError} onContinueToWhatsApp={openWA} paymentLink={invoiceLink} />
     </div>
   );
 }
