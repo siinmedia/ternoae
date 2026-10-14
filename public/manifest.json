@@ -1,0 +1,43 @@
+{
+  "name": "TernoAE - Ojek Termurah Jepara",
+  "short_name": "TernoAE",
+  "description": "Ojek termurah Jepara, pesan langsung tanpa aplikasi",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#F8FAFC",
+  "theme_color": "#0F2540",
+  "orientation": "any",
+  "categories": ["travel", "navigation", "utilities"],
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "/cover.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cover.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Pesan Ojek",
+      "short_name": "Pesan",
+      "description": "Pesan ojek sekarang",
+      "url": "/",
+      "icons": [{ "src": "/favicon.ico", "sizes": "96x96" }]
+    }
+  ]
+}
