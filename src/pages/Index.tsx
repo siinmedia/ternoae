@@ -120,6 +120,46 @@ export default function Index() {
   }, [pickup, destination]);
   const price = useMemo(() => distanceKm == null ? null : Math.round(BASE_FARE + distanceKm * PRICE_PER_KM), [distanceKm]);
   const reset = () => { setPickup(null); setDestination(null); setPickupLabel(""); setDestLabel(""); setRoute([]); setDistanceKm(null); setDurationMin(null); setSelecting("pickup"); setNotes(""); };
+
+  // IP detect — map langsung area sekitar user
+  useEffect(() => {
+    if (pickup) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const r = await fetch("https://ipwho.is/", { headers: { Accept: "application/json" } });
+        const d = await r.json();
+        if (cancelled || !d.success) return;
+        const l = { lat: d.latitude, lng: d.longitude };
+        if (!l.lat || !l.lng) return;
+        // Indonesia check rough + Jateng preferred
+        const inIndo = l.lat >= -11 && l.lat <= 6 && l.lng >= 95 && l.lng <= 141;
+        if (!inIndo) return;
+        setPickup(l);
+        setPickupLabel("Mendeteksi lokasi sekitar...");
+        const label = await reverseGeocode(l);
+        if (cancelled) return;
+        setPickupLabel(label);
+        setSelecting("destination");
+        toast({ title: "Lokasi terdeteksi via IP", description: label.slice(0, 80) });
+      } catch {
+        try {
+          const r2 = await fetch("https://ipapi.co/json/");
+          const d2 = await r2.json();
+          if (cancelled || !d2.latitude) return;
+          const l2 = { lat: d2.latitude, lng: d2.longitude };
+          if (!isInJateng(l2)) return;
+          setPickup(l2);
+          setPickupLabel("Mendeteksi lokasi...");
+          const label2 = await reverseGeocode(l2);
+          if (cancelled) return;
+          setPickupLabel(label2);
+          setSelecting("destination");
+        } catch {}
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [reverseGeocode]);
   const makeInvoiceLink = (nama: string, nomor: string, nominal: number) => {
     try {
       const payload = { nama: nama.trim(), nomor: nomor.trim(), nominal: String(Math.round(nominal)) };
@@ -215,7 +255,7 @@ export default function Index() {
 
               <div className="rounded-[12px] border border-[hsl(var(--border))] overflow-hidden bg-white">
                 <div className="flex items-center justify-between bg-[#0F2540] px-3 py-2 text-white"><span className="flex items-center gap-1 text-[10px] font-bold uppercase"><Wallet size={11} />Estimasi</span><span className="flex items-center gap-1 text-[10px] opacity-70"><RouteIcon size={10} />{distanceKm != null ? `${distanceKm.toFixed(2)}km` : "0km"}·<Clock3 size={10} />{durationMin != null ? `${Math.round(durationMin)}m` : "-"}</span></div>
-                <div className="p-3 flex items-end justify-between gap-2"><div className="min-w-0"><div className="text-[22px] font-extrabold leading-none tracking-tight">{loading ? "..." : price != null ? formatIDR(price) : "-"}</div><div className="mt-1 text-[11px] text-[hsl(var(--muted-foreground))]">{formatIDR(BASE_FARE)} + {formatIDR(PRICE_PER_KM)}/km</div></div><div className="grid h-8 w-8 place-items-center rounded-full bg-[#FFF8DB] border border-[#FFE27A]"><Wallet size={14} /></div></div>
+                <div className="p-3 flex items-end justify-between gap-2"><div className="min-w-0"><div className="text-[22px] font-extrabold leading-none tracking-tight">{loading ? "..." : price != null ? formatIDR(price) : "-"}</div></div><div className="grid h-8 w-8 place-items-center rounded-full bg-[#FFF8DB] border border-[#FFE27A]"><Wallet size={14} /></div></div>
                 {(!pickup || !destination) && <div className="mx-3 mb-3 rounded-[8px] bg-[#FFF8DB] border border-[#FFE27A] px-2.5 py-1.5 text-[11px] font-medium flex items-center gap-1"><Search size={11} />Lengkapi A & B untuk harga</div>}
               </div>
 
