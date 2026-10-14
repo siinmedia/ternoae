@@ -7,13 +7,49 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ternoae.web.id/intel</loc>
+    <loc>https://ternoae.web.id/blog</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ternoae.web.id/blog/ternoae-asli-jepara-ojek-termurah</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ternoae.web.id/blog/tarif-ojek-jepara-mulai-5000-transparan</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ternoae.web.id/blog/ojek-online-24-jam-jepara-antar-jemput-jateng</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://inv.ternoae.web.id/</loc>
+    <loc>https://ternoae.web.id/blog/cara-pesan-ojek-jepara-gps-tanpa-aplikasi</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ternoae.web.id/blog/driver-lokal-jepara-aman-cepat-qris-tunai</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ternoae.web.id/blog/kenapa-ojek-jepara-pilih-ternoae-murah</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ternoae.web.id/intel</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
