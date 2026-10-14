@@ -47,6 +47,11 @@ const QRISModal = ({ open, onClose, qrisString, amount, loading, error, onContin
                 <div className="text-[11px] font-bold">Scan dengan e-wallet / m-banking</div>
                 <div className="text-[10px] text-[hsl(var(--muted-foreground))]">BCA • BRI • Mandiri • Gopay • OVO • Dana dll</div>
               </div>
+              {paymentLink && (
+                <a href={paymentLink} target="_blank" rel="noreferrer" className="mt-3 block w-full break-all rounded-[8px] bg-white border border-[hsl(var(--border))] px-2.5 py-2 text-center text-[11px] font-medium text-[#0F2540] underline underline-offset-2">
+                  {paymentLink}
+                </a>
+              )}
             </>
           )}
         </div>
