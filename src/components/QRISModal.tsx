@@ -25,25 +25,14 @@ const QRISModal = ({ open, onClose, qrisString, amount, loading, error, onContin
         className="w-full max-w-[380px] rounded-[16px] border border-[hsl(var(--border))] bg-white p-4 shadow-[var(--sh-md)] sm:p-5"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <h3 className="text-[14px] font-bold tracking-tight">Bayar dengan QRIS</h3>
             <p className="mt-1 text-[12px] font-medium text-[hsl(var(--muted-foreground))]">
               Total <span className="font-bold text-[hsl(var(--foreground))]">{formatIDR(amount)}</span>
             </p>
-            {paymentLink && (
-              <a href={paymentLink} target="_blank" rel="noreferrer" className="mt-1 inline-flex text-[11px] font-semibold text-[#0F2540] underline underline-offset-2">
-                {paymentLink.replace("https://", "")}
-              </a>
-            )}
           </div>
-          <button
-            onClick={onClose}
-            className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[hsl(var(--border))] bg-white text-[12px] font-bold"
-            aria-label="Tutup"
-          >
-            ✕
-          </button>
+          <button onClick={onClose} className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[hsl(var(--border))] bg-white text-[12px] font-bold" aria-label="Tutup">✕</button>
         </div>
 
         <div className="mt-3 flex flex-col items-center justify-center rounded-[12px] border border-[hsl(var(--border))] bg-[#F8FAFC] p-3">
@@ -62,15 +51,7 @@ const QRISModal = ({ open, onClose, qrisString, amount, loading, error, onContin
           )}
         </div>
 
-        {paymentLink && !loading && !error && (
-          <div className="mt-3 rounded-[10px] bg-[#FFF8DB] border border-[#FFE27A] p-2.5">
-            <div className="text-[11px] font-bold">Link Pembayaran</div>
-            <a href={paymentLink} target="_blank" rel="noreferrer" className="mt-1 block break-all text-[11px] font-medium text-[#0F2540] underline">
-              {paymentLink}
-            </a>
-            <div className="mt-1 text-[10px] text-[hsl(var(--muted-foreground))]">Buka link untuk invoice resmi inv.ternoae.web.id + QR yang sama</div>
-          </div>
-        )}
+
 
         <button
           type="button"
