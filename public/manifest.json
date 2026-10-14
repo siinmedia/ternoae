@@ -1,7 +1,7 @@
 {
-  "name": "TernoAE - Ojek Termurah Jepara",
+  "name": "TernoAE - Ojek Termurah Jepara | Ojek Online 24 Jam",
   "short_name": "TernoAE",
-  "description": "Ojek termurah Jepara, pesan langsung tanpa aplikasi",
+  "description": "Ojek termurah Jepara - ojek online 24 jam antar jemput se-Jawa Tengah, kirim barang. Tarif mulai Rp5.000, pesan GPS, bayar QRIS/tunai",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -9,35 +9,70 @@
   "background_color": "#F8FAFC",
   "theme_color": "#0F2540",
   "orientation": "any",
-  "categories": ["travel", "navigation", "utilities"],
-  "lang": "id",
+  "categories": ["travel", "navigation", "utilities", "shopping"],
+  "lang": "id-ID",
+  "dir": "ltr",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon",
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/cover.png",
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/cover.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "shortcuts": [
     {
-      "name": "Pesan Ojek",
+      "name": "Pesan Ojek Sekarang",
       "short_name": "Pesan",
-      "description": "Pesan ojek sekarang",
+      "description": "Pesan ojek termurah Jepara sekarang",
       "url": "/",
-      "icons": [{ "src": "/favicon.ico", "sizes": "96x96" }]
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Intel Service",
+      "short_name": "Intel",
+      "description": "Cek Intel Service Jepara",
+      "url": "/intel",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "TernoAE Ojek Termurah Jepara"
     }
   ]
 }
