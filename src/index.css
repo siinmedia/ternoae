@@ -87,6 +87,14 @@
       radial-gradient(600px 400px at 50% 120%, rgba(255,200,0,0.06), transparent 70%),
       linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
     -webkit-font-smoothing: antialiased; overflow-x: clip;
+    /* Prevent iOS auto-zoom on input focus */
+    -webkit-text-size-adjust: 100%;
+  }
+  /* iOS fix: input font-size >=16px prevents zoom */
+  @media screen and (max-width: 767px) {
+    input, textarea, select, .input, .input-field {
+      font-size: 16px !important;
+    }
   }
   h1,h2,h3,h4,button,input,select,textarea { font-family: inherit; }
   h1 { font-size: var(--fs-h1); line-height: .98; letter-spacing: -.04em; font-weight: var(--fw-bold); }
